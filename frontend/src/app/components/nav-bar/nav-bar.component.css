@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%; 
+    padding: 20px; 
+    background-color: beige; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+}
+
+/* Enlace */
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline;
+}
+
+/* Estilos para el enlace */
+.navbar a {
+    display: flex; /* Flexbox en el contenedor del texto y la imagen */
+    align-items: center; /* Alinear verticalmente en el centro */
+    text-decoration: none;
+    color: beige; /* Color de las letras beige */
+    background-color: black; /* Fondo negro para el recuadro */
+    padding: 10px 15px;
+    font-weight: bolder;
+    font-size: xx-large;
+    border-radius: 5px; /* Bordes redondeados */
+    gap: 10px; /* Espacio entre el texto y la imagen */
+}
+
+/* Estilos para la imagen */
+.logo-png {
+    width: 40px;
+    height: 40px;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+    .navbar {
+        padding: 15px;
+    }
+
+    .navbar a {
+        padding: 8px 12px;
+    }
+
+    .logo-png {
+        width: 30px;
+        height: 30px;
+    }
+}
