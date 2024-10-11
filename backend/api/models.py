@@ -12,7 +12,7 @@ class Cliente(models.Model):
     email = models.EmailField(max_length=100)
     telefono = models.CharField(max_length=20)
 
-class Vendedor(models.Model):
+class Vendedor(models.Model): #Lo que seria nuestro usuario en terminos de login
     nombre = models.CharField(max_length=100)
     documento = models.CharField(max_length=20)
     usuario = models.CharField(max_length=50)
