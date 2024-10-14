@@ -10,7 +10,7 @@ body {
     align-items: center;
     width: 100%; 
     padding: 20px; 
-    background-color: beige; 
+    background-color: #e2d1c0; 
     position: fixed; 
     top: 0;
     left: 0;
@@ -32,7 +32,7 @@ body {
     display: flex; /* Flexbox en el contenedor del texto y la imagen */
     align-items: center; /* Alinear verticalmente en el centro */
     text-decoration: none;
-    color: beige; /* Color de las letras beige */
+    color: #e2d1c0; /* Color de las letras beige */
     background-color: black; /* Fondo negro para el recuadro */
     padding: 10px 15px;
     font-weight: bolder;
