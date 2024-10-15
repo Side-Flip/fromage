@@ -77,7 +77,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://hauirqtl:FtNLvMyU3brZnFxQwlK24gc71BI3Ls_L@chunee.db.elephantsql.com/hauirqtl')
+    'default':{
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hauirqtl',
+        'USER': 'hauirqtl',
+        'PASSWORD': 'FtNLvMyU3brZnFxQwlK24gc71BI3Ls_L',
+        'HOST': 'chunee.db.elephantsql.com',
+        'PORT': '5432',
+        'OPTIONS' : {
+            'options': '-c search_path=formaggio'
+        }
+    }
+    #'default': dj_database_url.parse('postgres://hauirqtl:FtNLvMyU3brZnFxQwlK24gc71BI3Ls_L@chunee.db.elephantsql.com/hauirqtl')
 }
 
 
