@@ -1,1 +1,71 @@
-<p>sale works!</p>
+<div class="container">
+    <h2>Ventas</h2>
+    <div class="sale-container">
+      <div class="info-container">
+        <div class="invoice-info">
+          <h4>Información de la Factura</h4>
+          <div class="invoice-details">
+            <label for="invoice-number">Número de Factura:</label>
+            <input class="search-input" type="text" id="invoice-number" placeholder="Número de factura" />
+            
+            <label for="invoice-date">Fecha:</label>
+            <input class="search-input" type="date" id="invoice-date" />
+            
+            <label for="invoice-time">Hora:</label>
+            <input class="search-input" type="time" id="invoice-time" />
+            
+            <label for="salesperson-name">Nombre del Vendedor:</label>
+            <input class="search-input" type="text" id="salesperson-name" placeholder="Nombre del vendedor" />
+          </div>
+        </div>
+        
+        <div class="customer-info">
+          <h4>Información del Cliente</h4>
+          <label for="document-type">Buscar por Tipo de Documento:</label>
+          <input class="search-input" type="text" id="document-type" placeholder="Tipo de documento" />
+          
+          <label for="customer-name">Buscar por Nombre:</label>
+          <input class="search-input" type="text" id="customer-name" placeholder="Nombre del cliente" />
+          
+          <label for="customer-phone">Teléfono:</label>
+          <input class="search-input" type="text" id="customer-phone" placeholder="Teléfono del cliente" disabled />
+        </div>
+        
+        <div class="product-table-container">
+          <h4>Productos</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Código de Producto</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="product-rows">
+              <tr>
+                <td><input type="text" placeholder="Código" /></td>
+                <td><input type="text" placeholder="Nombre" /></td>
+                <td><input type="number" placeholder="Cantidad" min="1" /></td>
+                <td><input type="number" placeholder="Precio Unitario" min="0" /></td>
+                <td><input type="number" placeholder="Total" disabled /></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="total-section">
+            <h4>Total:</h4>
+            <input type="number" id="total" disabled />
+          </div>
+        </div>
+      </div>
+  
+      <div class="action-container">
+        <div class="action-buttons">
+          <button class="action-button" id="facturar-button">Facturar</button>
+          <button class="action-button" id="cancel-button">Cancelar Venta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

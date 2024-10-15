@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.sale-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    background-color: #e2d1c0;
+    padding: 30px;
+    border-radius: 8px;
+    gap: 20px;
+    width: 80%; /* Ajusta el ancho según sea necesario */
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.invoice-info, .customer-info {
+    margin-bottom: 20px;
+}
+
+.product-table-container {
+    width: 100%;
+    background-color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.total-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.action-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-button {
+    background-color: #753b43;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #6F1D1B;
+}
+
+.search-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #753b43;
+    width: 30%;
+}
