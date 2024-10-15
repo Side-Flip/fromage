@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [MatIconModule, NavBarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

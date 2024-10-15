@@ -33,7 +33,7 @@ body {
     align-items: center;
     border-radius: 5px;
     padding: 20px;
-    background-color: rgb(245, 245, 220);
+    background-color: #e2d1c0;
     border: 0;
     color: black;
     text-align: center;
@@ -45,8 +45,8 @@ body {
   }
   
   .container div:hover {
-    background-color: #5e2129;
-    color: rgb(245, 245, 220);
+    background-color: #753b43;
+    color: #e2d1c0;
   }
   
   mat-icon {
