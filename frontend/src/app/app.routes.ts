@@ -4,11 +4,10 @@ import { LoginComponent } from './components/login/login.component';
 import { ProductComponent } from './components/product/product.component';
 import { SaleComponent } from './components/sale/sale.component';
 import { ReportComponent } from './components/report/report.component';
-import { ReceiptComponent } from './components/receipt/receipt.component';
-import { ReceiptDetailsComponent } from './components/receipt-details/receipt-details.component';
-import { ReportDetailsComponent } from './components/report-details/report-details.component';
 import { authGuard } from './core/guards/auth.guard';
 import { authenticatedGuard } from './core/guards/authenticated.guard';
+import { InvoiceDetailComponent } from './components/invoice-detail/invoice-detail.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 export const routes: Routes = [
     {
@@ -28,24 +27,16 @@ export const routes: Routes = [
         component:ProductComponent,
         /*canActivate: [authGuard]*/
     },{
-        path:'home/receipt',
-        component:ReceiptComponent,
-        /*canActivate: [authGuard]*/
-    },{
-        path:'home/receipt-details',
-        component:ReceiptDetailsComponent,
-        canActivate: [authGuard]
-    },{
         path:'home/report',
         component:ReportComponent,
-        canActivate: [authGuard]
-    },{
-        path:'home/report-details',
-        component:ReportDetailsComponent,
-        canActivate: [authGuard]
+        /*canActivate: [authGuard]*/
     },{
         path:'home/sale',
         component:SaleComponent,
+        /*canActivate: [authGuard]*/
+    },{
+        path:'home/invoice',
+        component:InvoiceComponent,
         /*canActivate: [authGuard]*/
     }
 ];
