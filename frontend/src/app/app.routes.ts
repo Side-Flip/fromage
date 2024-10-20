@@ -12,7 +12,7 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
 export const routes: Routes = [
     {
         path:'',
-        redirectTo:'/home/product',
+        redirectTo:'/home',
         pathMatch:'full'
     },{
         path:'login',
