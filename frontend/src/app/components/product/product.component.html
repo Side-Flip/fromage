@@ -1,42 +1,32 @@
 <div class="container">
     <h2>Busque los productos por nombre o filtre por categorías</h2>
     <div class="search-container">
-        
-        <input type="text" placeholder="Producto:" class="search-input">
-        <button class="search-button" aria-label="Buscar">
-            <mat-icon>search</mat-icon>
-        </button>
-        <select name="category-products" id="category">
-            <option value="tipo-leche">Tipo de leche</option>
-            <option value="contenido-graso">contenido-graso</option>
-            <option value="maduracion">Maduración</option>
-            <option value="productor">Productor</option>
-        </select>
+        <mat-form-field>
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)">
+          </mat-form-field>
     </div>
     <div class="table-container"> 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Código</th>
-                    <th>Precio</th>
-                    <th>Existencias</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Producto 1</td>
-                    <td>001</td>
-                    <td>$10</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>Producto 2</td>
-                    <td>002</td>
-                    <td>$20</td>
-                    <td>50</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+          
+                @for (column of displayedColumns; track $index){
+                    <ng-container [matColumnDef]="column">
+                        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                      </ng-container>
+                }
+        
+        
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+           
     </div>
 </div>
