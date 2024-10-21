@@ -9,21 +9,18 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  user: string = '';
+  username: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService, private router: Router ){
+  constructor(private authService: AuthService, private router: Router) {}
 
+  login(): void {
+    this.authService.login(this.username, this.password).subscribe({
+      next: () => this.router.navigate(['/home']),
+      error: (err) => console.error('Login fallido', err),
+    });
   }
-
-  login(): void{
-    this.authService.login(this.user, this.password).subscribe({
-      next: ()=> this.router.navigate(['/home']),
-      error: (err) => console.error('Login fallido', err)
-    })
-
-  } 
 }

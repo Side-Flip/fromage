@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
+from api.auth_rules import custom_user_authentication_rule
+
+SIMPLE_JWT = {
+    'USER_AUTHENTICATION_RULE': custom_user_authentication_rule,
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 ]
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -63,6 +66,11 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",  # Angular default
+]
+
+AUTHENTICATION_BACKENDS = [
+    'api.backends.CustomUserBackend', 
+    'django.contrib.auth.backends.ModelBackend',  
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -97,6 +105,7 @@ DATABASES = {
         'PASSWORD': 'FtNLvMyU3brZnFxQwlK24gc71BI3Ls_L',
         'HOST': 'chunee.db.elephantsql.com',
         'PORT': '5432',
+        'CONN_MAX_AGE': 0,
         'OPTIONS' : {
             'options': '-c search_path=formaggio'
         }
@@ -107,6 +116,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
