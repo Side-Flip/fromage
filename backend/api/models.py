@@ -5,8 +5,8 @@ class ApiCliente(models.Model):
     nombre_cliente = models.CharField(max_length=100)
     apellido_cliente= models.CharField(max_length=100)
     documento_cliente = models.CharField(max_length=20)
-    email = models.CharField(max_length=100)
-    celular = models.CharField(max_length=20)
+    email = models.EmailField(max_length=100)
+    celular = models.IntegerField()
 
     class Meta:
         managed = False
@@ -54,7 +54,7 @@ class ApiVendedor(models.Model):
     documento_vendedor = models.CharField(max_length=20)
     usuario_vendedor = models.CharField(max_length=50)
     contrasenia_vendedor = models.CharField(max_length=50)
-    id_rol = models.CharField(max_length=50)
+    id_rol = models.IntegerField()
 
     class Meta:
         managed = False

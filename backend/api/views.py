@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.http import HttpResponse
-from .models import ApiVendedor
+from .models import ApiVendedor, ApiProducto
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework import serializers
 from rest_framework_simplejwt.settings import api_settings
-
+from rest_framework import generics
+from rest_framework import serializers
+from django.db.models import Q
 
 class CustomTokenOBtainPairSerializer(TokenObtainPairSerializer):
     username_field = 'username'
@@ -27,7 +28,36 @@ class CustomTokenOBtainPairSerializer(TokenObtainPairSerializer):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenOBtainPairSerializer
 
+# Serializer de producto
+class ProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApiProducto
+        fields = '__all__'
+
+
 # Create your views here.
+
+class ProductoList(generics.ListAPIView):
+    queryset = ApiProducto.objects.all()
+    serializer_class = ProductoSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        nombre = self.request.query_params.get('nombre', None)
+        precio = self.request.query_params.get('precio', None)
+        stock = self.request.query_params.get('stock', None)
+        if nombre:
+            queryset = queryset.filter(nombre_producto__icontains=nombre)
+        if precio:
+            queryset = queryset.filter(precio_producto__gte=precio)
+        if stock:
+            queryset = queryset.filter(stock__gte=stock)
+        return queryset
+
+
+    
+
 def login_view(request):
     return render(request, 'login.html')
 
