@@ -1,71 +1,186 @@
-<div class="container">
-    <h2>Ventas</h2>
-    <div class="sale-container">
-      <div class="info-container">
-        <div class="invoice-info">
-          <h4>Información de la Factura</h4>
-          <div class="invoice-details">
-            <label for="invoice-number">Número de Factura:</label>
-            <input class="search-input" type="text" id="invoice-number" placeholder="Número de factura" />
-            
-            <label for="invoice-date">Fecha:</label>
-            <input class="search-input" type="date" id="invoice-date" />
-            
-            <label for="invoice-time">Hora:</label>
-            <input class="search-input" type="time" id="invoice-time" />
-            
-            <label for="salesperson-name">Nombre del Vendedor:</label>
-            <input class="search-input" type="text" id="salesperson-name" placeholder="Nombre del vendedor" />
-          </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venta</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Venta</h1>
         </div>
-        
-        <div class="customer-info">
-          <h4>Información del Cliente</h4>
-          <label for="document-type">Buscar por Tipo de Documento:</label>
-          <input class="search-input" type="text" id="document-type" placeholder="Tipo de documento" />
-          
-          <label for="customer-name">Buscar por Nombre:</label>
-          <input class="search-input" type="text" id="customer-name" placeholder="Nombre del cliente" />
-          
-          <label for="customer-phone">Teléfono:</label>
-          <input class="search-input" type="text" id="customer-phone" placeholder="Teléfono del cliente" disabled />
+        <div class="main-content">
+            <div class="left-section">
+                <div class="top-left">
+                    <div class="left-info">
+                        <div class="invoice-info">
+                            <label class=" label fac">Num. Factura:</label>
+                            <div class="label fac">1122</div>
+                        </div>
+                        <div class="client-info">
+                            <span class="label info">Nombre del Cliente</span>
+                            <span class="label info">Doc:</span>
+                            <span class="label info">100522</span>
+                        </div>
+                    </div>
+                    <div class="right-info">
+                        <div class="date-info">
+                            <span class="label info">Fecha: </span>
+                            <span class="label info">{{ currentDate }}</span>
+                        </div>
+                        <div class="hour-info">
+                            <span class="label info">Hora: </span>
+                            <span class="label info">{{currentTime}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="middle-left">
+                    <div class="separator"></div>
+                    <div class="tabla">
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Cantidad</th>
+                                    <th>Producto</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aquí puedes agregar filas dinámicamente -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>Ejemplo Producto</td>
+                                    <td>$10.00</td>
+                                    <td>$10.00</td>
+                                </tr>
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>Ejemplo Producto</td>
+                                    <td>$10.00</td>
+                                    <td>$10.00</td>
+                                </tr>
+
+                              
+                                <!-- Más filas según sea necesario -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="total">
+                        <div class="total-header label">
+                                Total
+                        </div>
+                        <div class="total-calc"> 
+                                $20
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-left">
+                    <div class="bottom-left-item">Buscar Cliente</div>
+                    <div class="bottom-left-item"> Eliminar Producto</div>
+                    <div class="bottom-left-item"> FACTURAR</div>
+                    <div class="bottom-left-item">CANCELAR</div>
+                </div>
+            </div>
+            <div class="right-section">
+                <div class="header">
+                    <h2 class="subtitle">Producto</h2>
+                </div>
+
+                <div class="separator"></div>
+                
+                <div class="search-section">
+                    <select class="filter-select">
+                        <option value="nombre">Nombre</option>
+                        <option value="id">ID</option>
+                    </select>
+                    <input
+                        type="text"
+                        class="search-bar"
+                        placeholder="Buscar..."
+                    />
+                    <button class="search-button" >Buscar</button>
+                </div>
+                <div class="separator"></div>
+
+                <div class="table-section">
+                    <div>
+                        <table class="product">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Producto Ejemplo 1</td>
+                                    <td>$10.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Producto Ejemplo 2</td>
+                                    <td>$15.50</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Producto Ejemplo 3</td>
+                                    <td>$8.25</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Producto Ejemplo 1</td>
+                                    <td>$10.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Producto Ejemplo 2</td>
+                                    <td>$15.50</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Producto Ejemplo 3</td>
+                                    <td>$8.25</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Producto Ejemplo 1</td>
+                                    <td>$10.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Producto Ejemplo 2</td>
+                                    <td>$15.50</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Producto Ejemplo 3</td>
+                                    <td>$8.25</td>
+                                </tr>
+                                <!-- Más filas según sea necesario -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="add-product-section">
+                    <div class="quantity-section">
+                        <label for="quantity" class="label fac">Cantidad:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input">
+                    </div>
+                    <button class="bottom-left-item btn-add">Agregar</button>
+                </div>
+
+
+            </div>
         </div>
-        
-        <div class="product-table-container">
-          <h4>Productos</h4>
-          <table>
-            <thead>
-              <tr>
-                <th>Código de Producto</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="product-rows">
-              <tr>
-                <td><input type="text" placeholder="Código" /></td>
-                <td><input type="text" placeholder="Nombre" /></td>
-                <td><input type="number" placeholder="Cantidad" min="1" /></td>
-                <td><input type="number" placeholder="Precio Unitario" min="0" /></td>
-                <td><input type="number" placeholder="Total" disabled /></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="total-section">
-            <h4>Total:</h4>
-            <input type="number" id="total" disabled />
-          </div>
-        </div>
-      </div>
-  
-      <div class="action-container">
-        <div class="action-buttons">
-          <button class="action-button" id="facturar-button">Facturar</button>
-          <button class="action-button" id="cancel-button">Cancelar Venta</button>
-        </div>
-      </div>
     </div>
-  </div>
-  
+</body>
+</html>
