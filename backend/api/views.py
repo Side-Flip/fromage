@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.http import HttpResponse
 from .models import ApiVendedor, ApiProducto
@@ -17,6 +18,8 @@ class CustomTokenOBtainPairSerializer(TokenObtainPairSerializer):
             'username': attrs[self.username_field],
             'password': attrs['password']
         }
+        print(f"Autenticando usuario: {attrs[self.username_field]} con contraseña: {attrs['password']}")    
+
         self.user = authenticate(**authenticate_kwargs)
 
         if self.user is None:

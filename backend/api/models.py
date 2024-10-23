@@ -60,4 +60,8 @@ class ApiVendedor(models.Model):
         managed = False
         db_table = '"formaggio"."vendedores"'
 
+    def __str__(self):
+        return f"Vendedor: {self.nombre_vendedor}, Usuario: {self.usuario_vendedor}, Contraseña: {self.contrasenia_vendedor}"
+
+
 
