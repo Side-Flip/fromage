@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.http import HttpResponse
-from .models import ApiVendedor, ApiProducto
+from .models import ApiVendedor, ApiProducto, ApiFactura, ApiDetallefactura, ApiCliente
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.settings import api_settings
@@ -76,3 +76,25 @@ def test_view(request):
     except Exception as e:
         # Si ocurre algún error, mostramos el error
         return HttpResponse(f"Error al consultar la base de datos: {str(e)}")
+    
+
+# serializer facturas
+class FacturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApiFactura
+        fields = ['fecha_factura', 'id_cliente', 'id_vendedor']
+
+class FacturaCreate(generics.CreateAPIView):
+    queryset = ApiFactura.objects.all()
+    serializer_class = FacturaSerializer
+      
+
+class DetalleFacturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApiDetallefactura
+        fields = '__all__'
+
+class DetalleFacturaCreate(generics.CreateAPIView):
+    
+    queryset = ApiDetallefactura.objects.all()
+    serializer_class = DetalleFacturaSerializer
