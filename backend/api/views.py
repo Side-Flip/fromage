@@ -47,9 +47,14 @@ class ProductoList(generics.ListAPIView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
+        codigo = self.request.query_params.get('codigo', None) #Faltaba esto para la tabla productos
         nombre = self.request.query_params.get('nombre', None)
         precio = self.request.query_params.get('precio', None)
         stock = self.request.query_params.get('stock', None)
+        
+
+        if codigo:
+            queryset = queryset.filter(id_producto__gte=codigo)
         if nombre:
             queryset = queryset.filter(nombre_producto__icontains=nombre)
         if precio:
