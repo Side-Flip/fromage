@@ -7,8 +7,9 @@ from .models import ApiVendedor, ApiProducto, ApiFactura, ApiDetallefactura, Api
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.settings import api_settings
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework import serializers
+from rest_framework.response import Response
 from django.db.models import Q
 
 class CustomTokenOBtainPairSerializer(TokenObtainPairSerializer):
@@ -37,9 +38,6 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = ApiProducto
         fields = '__all__'
 
-
-# Create your views here.
-
 class ProductoList(generics.ListAPIView):
     queryset = ApiProducto.objects.all()
     serializer_class = ProductoSerializer
@@ -54,7 +52,7 @@ class ProductoList(generics.ListAPIView):
         
 
         if codigo:
-            queryset = queryset.filter(id_producto__gte=codigo)
+            queryset = queryset.filter(id_producto=codigo)
         if nombre:
             queryset = queryset.filter(nombre_producto__icontains=nombre)
         if precio:
@@ -63,8 +61,111 @@ class ProductoList(generics.ListAPIView):
             queryset = queryset.filter(stock__gte=stock)
         return queryset
 
+# serializer facturas
+class FacturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApiFactura
+        fields = ['fecha_factura', 'id_cliente', 'id_vendedor']
 
+class FacturaCreate(generics.CreateAPIView):
+    queryset = ApiFactura.objects.all()
+    serializer_class = FacturaSerializer
+
+class FactosSerializer(serializers.Serializer):
+    id_factura = serializers.IntegerField(read_only=True)
+    id_producto = serializers.IntegerField()
+    cantidad_producto = serializers.IntegerField()
+    total = serializers.FloatField()
+
+    id_cliente = serializers.IntegerField()
+    id_vendedor = serializers.IntegerField()
+    fecha_factura = serializers.DateField()
+
+    def create(self, validated_data):
+        try:
+            cliente = ApiCliente.objects.get(pk=validated_data['id_cliente'])
+            vendedor = ApiVendedor.objects.get(pk=validated_data['id_vendedor'])
+            producto = ApiProducto.objects.get(pk=validated_data['id_producto'])
+        except ApiCliente.DoesNotExist:
+            raise serializers.ValidationError("El cliente especificado no existe.")
+        except ApiVendedor.DoesNotExist:
+            raise serializers.ValidationError("El vendedor especificado no existe.")
+        except ApiProducto.DoesNotExist:
+            raise serializers.ValidationError("El producto especificado no existe.")
+
+        factura_data = {
+            'fecha_factura': validated_data['fecha_factura'],
+            'id_cliente': cliente,
+            'id_vendedor': vendedor 
+        }
+        factura = ApiFactura.objects.create(**factura_data)
+
+        detalle_data = {
+            'id_factura': factura,
+            'cantidad_producto': validated_data['cantidad_producto'],
+            'total': validated_data['total'],
+            'id_producto': producto,
+        }
+        detalle_factura = ApiDetallefactura.objects.create(**detalle_data)
+
+        return {
+            'factura': factura,
+            'detalle': detalle_factura
+        }
+
+class DetalleFacturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApiDetallefactura
+        fields = ['id_factura', 'cantidad_producto', 'total', 'id_producto']
+"""
+class DetalleFacturaCreate(generics.CreateAPIView):
     
+    queryset = ApiDetallefactura.objects.all()
+    serializer_class = DetalleFacturaSerializer
+
+    #def perform_create(self, serializer):
+        #factura = self.request.data['id_factura']
+        #producto = self.request.data['id_producto']
+       # cantidad = self.request.data['cantidad_producto']
+       # total = self.request.data['total']
+
+      #  factura_instance = ApiFactura.objects.get(id_factura=factura)
+     #   producto_instance = ApiProducto.objects.get(id_producto=producto)
+
+     #  serializer.save(id_factura = factura_instance, id_producto=producto_instance, cantidad_producto=cantidad, total=total )
+      #  return super().perform_create(serializer)
+    
+"""
+
+class Factos(generics.CreateAPIView):
+    serializer_class = FactosSerializer
+    # Toca soobreescribir el metodo create para mandar los datos
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.save()
+            
+            # Preparar la respuesta con los datos guardados
+            factura_data = {
+                'id_cliente': data['factura'].id_cliente.id_cliente,
+                'id_vendedor': data['factura'].id_vendedor.id_vendedor,
+                'fecha_factura': data['factura'].fecha_factura.isoformat(),
+            }
+            detalle_data = {
+                'id_factura': data['detalle'].id_factura.id_factura,
+                'id_producto': data['detalle'].id_producto.id_producto,
+                'cantidad_producto': data['detalle'].cantidad_producto,
+                'total': data['detalle'].total,
+            }
+            
+            # Enviar la respuesta con la factura y detalle de factura creados
+            return Response({
+                'factura': factura_data,
+                'detalle_factura': detalle_data
+            }, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 def login_view(request):
     return render(request, 'login.html')
@@ -85,37 +186,3 @@ def test_view(request):
         # Si ocurre algún error, mostramos el error
         return HttpResponse(f"Error al consultar la base de datos: {str(e)}")
     
-
-# serializer facturas
-class FacturaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ApiFactura
-        fields = ['fecha_factura', 'id_cliente', 'id_vendedor']
-
-class FacturaCreate(generics.CreateAPIView):
-    queryset = ApiFactura.objects.all()
-    serializer_class = FacturaSerializer
-      
-
-class DetalleFacturaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ApiDetallefactura
-        fields = ['id_factura', 'cantidad_producto', 'total', 'id_producto']
-
-class DetalleFacturaCreate(generics.CreateAPIView):
-    
-    queryset = ApiDetallefactura.objects.all()
-    serializer_class = DetalleFacturaSerializer
-
-    #def perform_create(self, serializer):
-        #factura = self.request.data['id_factura']
-        #producto = self.request.data['id_producto']
-       # cantidad = self.request.data['cantidad_producto']
-       # total = self.request.data['total']
-
-      #  factura_instance = ApiFactura.objects.get(id_factura=factura)
-     #   producto_instance = ApiProducto.objects.get(id_producto=producto)
-
-     #  serializer.save(id_factura = factura_instance, id_producto=producto_instance, cantidad_producto=cantidad, total=total )
-      #  return super().perform_create(serializer)
-        
