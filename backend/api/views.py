@@ -92,9 +92,22 @@ class FacturaCreate(generics.CreateAPIView):
 class DetalleFacturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApiDetallefactura
-        fields = '__all__'
+        fields = ['id_factura', 'cantidad_producto', 'total', 'id_producto']
 
 class DetalleFacturaCreate(generics.CreateAPIView):
     
     queryset = ApiDetallefactura.objects.all()
     serializer_class = DetalleFacturaSerializer
+
+    #def perform_create(self, serializer):
+        #factura = self.request.data['id_factura']
+        #producto = self.request.data['id_producto']
+       # cantidad = self.request.data['cantidad_producto']
+       # total = self.request.data['total']
+
+      #  factura_instance = ApiFactura.objects.get(id_factura=factura)
+     #   producto_instance = ApiProducto.objects.get(id_producto=producto)
+
+     #  serializer.save(id_factura = factura_instance, id_producto=producto_instance, cantidad_producto=cantidad, total=total )
+      #  return super().perform_create(serializer)
+        

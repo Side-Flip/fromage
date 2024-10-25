@@ -30,5 +30,5 @@ urlpatterns = [
     #path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/productos/', ProductoList.as_view(), name='productos'),
     path('api/factura/', FacturaCreate.as_view(), name = 'factura'),
-    path('api/detallefactura/', DetalleFacturaCreate.as_view(), name = 'detallefactura')
+    path('api/detallefactura/', DetalleFacturaCreate.as_view(), name = 'detallefactura'),
 ]

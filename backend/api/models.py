@@ -49,14 +49,17 @@ class ApiFactura(models.Model):
         db_table = '"formaggio"."facturas"'
         
 class ApiDetallefactura(models.Model):
-    id_factura = models.OneToOneField(ApiFactura, on_delete=models.CASCADE, db_column='id_factura')
-    cantidad_producto = models.IntegerField()
-    total = models.FloatField()
+    id_detalle = models.BigAutoField(primary_key=True)
+    id_factura = models.ForeignKey(ApiFactura, on_delete=models.CASCADE, db_column='id_factura')
+    cantidad_producto = models.IntegerField(default=0)
+    total = models.FloatField(default=0)
     id_producto = models.ForeignKey(ApiProducto, models.DO_NOTHING, db_column='id_producto')
 
     class Meta:
-        managed = False
+        managed = False 
         db_table = '"formaggio"."detalles_facturas"'
+        
+        
 
 
 
