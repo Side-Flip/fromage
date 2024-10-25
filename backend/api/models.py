@@ -64,4 +64,8 @@ class ApiDetallefactura(models.Model):
 
 
 
+    def __str__(self):
+        return f"Vendedor: {self.nombre_vendedor}, Usuario: {self.usuario_vendedor}, Contraseña: {self.contrasenia_vendedor}"
+
+
 
