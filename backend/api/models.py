@@ -25,6 +25,9 @@ class ApiVendedor(models.Model):
         managed = False
         db_table = '"formaggio"."vendedores"'
 
+    def __str__(self):
+            return f"Vendedor: {self.nombre_vendedor}, Usuario: {self.usuario_vendedor}, Contraseña: {self.contrasenia_vendedor}"
+
 class ApiProducto(models.Model):
     id_producto = models.BigAutoField(primary_key=True)
     nombre_producto = models.CharField(max_length=100)
@@ -59,13 +62,6 @@ class ApiDetallefactura(models.Model):
         managed = False 
         db_table = '"formaggio"."detalles_facturas"'
         
-        
-
-
-
-
-    def __str__(self):
-        return f"Vendedor: {self.nombre_vendedor}, Usuario: {self.usuario_vendedor}, Contraseña: {self.contrasenia_vendedor}"
 
 
 
