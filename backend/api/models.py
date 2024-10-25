@@ -12,41 +12,6 @@ class ApiCliente(models.Model):
         managed = False
         db_table = '"formaggio"."clientes"'
 
-class ApiDetallefactura(models.Model):
-    id_factura = models.OneToOneField('ApiFactura', on_delete=models.CASCADE, primary_key=True)
-    cantidad_producto = models.IntegerField()
-    total = models.FloatField()
-    id_producto = models.ForeignKey('ApiProducto', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = '"formaggio"."detalles_facturas"'
-
-
-class ApiFactura(models.Model):
-    id_factura = models.BigAutoField(primary_key=True)
-    fecha_factura = models.DateField()
-    id_cliente = models.ForeignKey(ApiCliente, models.DO_NOTHING)
-    id_vendedor = models.ForeignKey('ApiVendedor', models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = '"formaggio"."facturas"'
-
-
-class ApiProducto(models.Model):
-    id_producto = models.BigAutoField(primary_key=True)
-    nombre_producto = models.CharField(max_length=100)
-    precio_producto = models.FloatField()
-    stock = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = '"formaggio"."productos"'
-
-    def __str__(self):
-        return f"Producto: {self.nombre_producto}, Precio: {self.precio_producto}, Stock: {self.stock}"
-
 
 class ApiVendedor(models.Model):
     id_vendedor = models.BigAutoField(primary_key=True)
@@ -61,7 +26,42 @@ class ApiVendedor(models.Model):
         db_table = '"formaggio"."vendedores"'
 
     def __str__(self):
-        return f"Vendedor: {self.nombre_vendedor}, Usuario: {self.usuario_vendedor}, Contraseña: {self.contrasenia_vendedor}"
+            return f"Vendedor: {self.nombre_vendedor}, Usuario: {self.usuario_vendedor}, Contraseña: {self.contrasenia_vendedor}"
+
+class ApiProducto(models.Model):
+    id_producto = models.BigAutoField(primary_key=True)
+    nombre_producto = models.CharField(max_length=100)
+    precio_producto = models.FloatField()
+    stock = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = '"formaggio"."productos"'
+
+    def __str__(self):
+        return f"Producto: {self.nombre_producto}, Precio: {self.precio_producto}, Stock: {self.stock}"
+
+class ApiFactura(models.Model):
+    id_factura = models.BigAutoField(primary_key=True)
+    fecha_factura = models.DateField()
+    id_cliente = models.ForeignKey('ApiCliente', on_delete=models.DO_NOTHING, db_column='id_cliente')
+    id_vendedor = models.ForeignKey('ApiVendedor', on_delete=models.DO_NOTHING, db_column='id_vendedor')
+
+    class Meta:
+        managed = False
+        db_table = '"formaggio"."facturas"'
+        
+class ApiDetallefactura(models.Model):
+    id_detalle = models.BigAutoField(primary_key=True)
+    id_factura = models.ForeignKey(ApiFactura, on_delete=models.CASCADE, db_column='id_factura')
+    cantidad_producto = models.IntegerField(default=0)
+    total = models.FloatField(default=0)
+    id_producto = models.ForeignKey(ApiProducto, models.DO_NOTHING, db_column='id_producto')
+
+    class Meta:
+        managed = False 
+        db_table = '"formaggio"."detalles_facturas"'
+        
 
 
 
