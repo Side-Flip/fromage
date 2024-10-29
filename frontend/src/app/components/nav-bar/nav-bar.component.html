@@ -4,11 +4,11 @@
       Fromages
       <img src="quesito.png" class="logo-png">
     </a>
-    <div class="center-section" *ngIf="isOnPage()">
-      <a mat-button (click)="navigateTo('home')" aria-label="Ir a la página de inicio" class="icon-link">
+    <div class="center-section">
+      <a mat-button (click)="navigateTo('home')" aria-label="Ir a la página de inicio" class="icon-link" *ngIf="isOnPage()">
         <mat-icon class="custom-icon">home</mat-icon>
       </a>
-      <a mat-button (click)="navigateTo('sale')" aria-label="Ir a la página de ventas" class="icon-link">
+      <a mat-button (click)="navigateTo('sale')" aria-label="Ir a la página de ventas" class="icon-link" *ngIf="isOnPageSale()">
         <mat-icon class="custom-icon">store</mat-icon>
       </a>
     </div>
