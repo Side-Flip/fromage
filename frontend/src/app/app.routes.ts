@@ -17,15 +17,15 @@ export const routes: Routes = [
     },{
         path:'login',
         component:LoginComponent,
-        /*canActivate: [authenticatedGuard]*/
+        canActivate: [authenticatedGuard]
     },{
         path:'home',
         component:HomeComponent,
-        /*canActivate: [authGuard]*/
+        canActivate: [authGuard]
     },{
         path:'home/product',
         component:ProductComponent,
-        /*canActivate: [authGuard]*/
+        canActivate: [authGuard]
     },{
         path:'home/report',
         component:ReportComponent,

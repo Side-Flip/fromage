@@ -18,6 +18,7 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   login(): void {
+    console.log('Intentando iniciar sesión con:', this.username, this.password); // Para diagnóstico
     this.authService.login(this.username, this.password).subscribe({
       next: () => this.router.navigate(['/home']),
       error: (err) => console.error('Login fallido', err),
