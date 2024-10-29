@@ -1,1 +1,45 @@
-<p>invoice works!</p>
+<div class="container">
+  <h2>Consulta facturas por nombre o número de factura</h2>
+  <div class="search-container">
+    <mat-form-field>
+      <mat-label>Buscar</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Buscar factura"
+      />
+    </mat-form-field>
+    <button class="search-button" (click)="loadInvoices()">
+      Buscar facturas
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Definir las columnas -->
+      <ng-container *ngFor="let column of displayedColumns">
+        <ng-container [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef>{{ columnHeaders[column] }}</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container [ngSwitch]="column">
+              <button *ngSwitchCase="'detalle'" mat-button (click)="viewDetail(element)">
+                Ver Detalle
+              </button>
+              <span *ngSwitchDefault>{{ element[column] }}</span>
+            </ng-container>
+          </td>
+        </ng-container>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Seleccionar página de facturas"
+    ></mat-paginator>
+  </div>
+</div>
