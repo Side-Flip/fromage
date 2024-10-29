@@ -12,7 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   standalone: true,
   imports: [MatToolbarModule, CommonModule, MatIconModule, MatMenuModule, MatButtonModule],
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.css'
+  styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
   constructor(private router: Router, private authService: AuthService,) {}
@@ -22,6 +22,11 @@ export class NavBarComponent {
   }
 
   isOnPage(): boolean {
+    const validRoutes = ['/home/product', '/home/invoice', '/home/report', '/home/sale'];
+    return validRoutes.includes(this.router.url);
+  }
+
+  isOnPageSale(): boolean {
     const validRoutes = ['/home/product', '/home/invoice', '/home/report'];
     return validRoutes.includes(this.router.url);
   }
