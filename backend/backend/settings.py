@@ -10,11 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 from api.auth_rules import custom_user_authentication_rule
 
 SIMPLE_JWT = {
     'USER_AUTHENTICATION_RULE': custom_user_authentication_rule,
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),   
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
