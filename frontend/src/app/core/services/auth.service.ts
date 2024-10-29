@@ -15,18 +15,29 @@ export class AuthService {
     return this.httpClient
       .post<any>(this.LOGIN_URL, { username, password })
       .pipe(
-        tap((response) => {
-          if (response.token) {
-            console.log(response.token);
-            this.setToken(response.token);
-          }
+        tap({
+          next: (response) => {
+            console.log('Respuesta completa del servidor:', response); // Muestra la respuesta completa
+            if (response.access) { // Asegúrate de que el token esté en "access" o la clave correcta
+              console.log('Token recibido:', response.access);
+              this.setToken(response.access);
+            } else {
+              console.warn('No se recibió un token en la respuesta');
+            }
+          },
+          error: (error) => {
+            console.error('Error en la autenticación', error);
+          },
         })
       );
   }
+  
 
   private setToken(token: string): void {
+    console.log('Guardando token:', token); 
     localStorage.setItem(this.tokenKey, token);
   }
+  
 
   private getToken(): string | null {
     if (typeof window !== 'undefined') {

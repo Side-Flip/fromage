@@ -12,20 +12,20 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
 export const routes: Routes = [
     {
         path:'',
-        redirectTo:'/home',
+        redirectTo:'/login',
         pathMatch:'full'
     },{
         path:'login',
         component:LoginComponent,
-        /*canActivate: [authenticatedGuard]*/
+        canActivate: [authenticatedGuard]
     },{
         path:'home',
         component:HomeComponent,
-        /*canActivate: [authGuard]*/
+        canActivate: [authGuard]
     },{
         path:'home/product',
         component:ProductComponent,
-        /*canActivate: [authGuard]*/
+        canActivate: [authGuard]
     },{
         path:'home/report',
         component:ReportComponent,
