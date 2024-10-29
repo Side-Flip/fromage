@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from api import views
-from api.views import CustomTokenObtainPairView, ProductoList, Factos
+from api.views import CustomTokenObtainPairView, ProductoList, Factos, APaF
 
 
 urlpatterns = [
@@ -29,6 +29,8 @@ urlpatterns = [
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     #path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/productos/', ProductoList.as_view(), name='productos'),
+    
+    path('api/APaF/<int:id_producto>/', APaF.as_view(), name='agregar-productos-factura'),
     #path('api/factura/', FacturaCreate.as_view(), name = 'factura'),
     #path('api/detallefactura/', DetalleFacturaCreate.as_view(), name = 'detallefactura'),
     path('api/crear-factura/', Factos.as_view(), name = 'hola'),

@@ -166,7 +166,6 @@ class Factos(generics.CreateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 def login_view(request):
     return render(request, 'login.html')
 
@@ -184,5 +183,48 @@ def test_view(request):
     
     except Exception as e:
         # Si ocurre algún error, mostramos el error
-        return HttpResponse(f"Error al consultar la base de datos: {str(e)}")
+        return HttpResponse(f"Error al consultar la base de datos: {str(e)}")   
+
+# Agregar Producto a Factura 
+class APaF(generics.UpdateAPIView):
+    queryset = ApiProducto.objects.all()
+    serializer_class = ProductoSerializer
+
+    def put(self, request, *args, **kwargs):
+
+        # valida que exista el producto
+        try:
+            producto = ApiProducto.objects.get(pk=self.kwargs['id_producto'])
+        except ApiProducto.DoesNotExist:
+            return Response({"error": "Producto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        
+        # cantidad es el dato que recibe de Geiner 
+        cantidad_a_restar = request.data.get('cantidad')
+       
+        nuevo_stock = producto.stock - int(cantidad_a_restar)
+
+        if nuevo_stock > producto.stock:
+            return Response({"error": "No hay stock disponible para la cantidad solicitada"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            producto.stock = nuevo_stock
+            producto.save()
+              
+        serializer = ProductoSerializer(producto)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
+# Cancelar Productos de Factura
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
