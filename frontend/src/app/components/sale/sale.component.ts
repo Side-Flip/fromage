@@ -3,6 +3,19 @@ import { SearchProductService } from '../../core/services/search-product.service
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+
+interface Product {
+  Codigo: number;
+  Nombre: string;
+  Precio: number;
+  Stock: number;
+}
+
+interface AddedProduct {
+  product: Product;
+  cantidad: number;
+}
+
 @Component({
   selector: 'app-sale',
   standalone: true,
@@ -10,6 +23,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './sale.component.html',
   styleUrl: './sale.component.css'
 })
+
 export class SaleComponent implements OnInit {
 
   formattedDate: string = '';
@@ -67,6 +81,48 @@ export class SaleComponent implements OnInit {
         product.Codigo.toString().includes(filterValue)
       );
     }
+  }
+
+  selectedProduct: Product | null = null;
+  quantity: number = 1;
+  addedProducts: AddedProduct[] = [];
+  errorMessage: string | null = null;
+
+
+  selectProduct(product: Product) {
+    this.selectedProduct = product;
+    this.errorMessage = null; // Limpiar mensaje de error al seleccionar un producto
+  }
+
+  // Agregar producto a la lista con validación de stock
+  addProduct() {
+    if (!this.selectedProduct) {
+      this.errorMessage = 'Por favor, selecciona un producto primero.';
+      return;
+    }
+
+    if (this.quantity <= 0) {
+      this.errorMessage = 'La cantidad debe ser mayor a cero.';
+      return;
+    }
+
+    if (this.quantity > this.selectedProduct.Stock) {
+      this.errorMessage = 'No hay inventario suficiente para la cantidad solicitada.';
+      return;
+    }
+
+    this.addedProducts.push({
+      product: this.selectedProduct,
+      cantidad: this.quantity
+    });
+
+    // Restar del stock disponible
+    this.selectedProduct.Stock -= this.quantity;
+
+    // Limpiar selección y cantidad
+    this.selectedProduct = null;
+    this.quantity = 1;
+    this.errorMessage = null;
   }
 
   
