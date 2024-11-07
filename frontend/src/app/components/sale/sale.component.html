@@ -41,9 +41,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Aquí puedes agregar filas dinámicamente -->
-                            
-                            <!-- Más filas según sea necesario -->
+                            <tr *ngFor="let item of addedProducts">
+                                <td>{{ item.cantidad }}</td>
+                                <td>{{ item.product.Nombre }}</td>
+                                <td>{{ item.product.Precio | currency }}</td>
+                                <td>{{ item.cantidad * item.product.Precio | currency }}</td>
+                              </tr>
                         </tbody>
                     </table>
                 </div>
@@ -97,7 +100,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let product of filteredData">
+                      <tr *ngFor="let product of filteredData"
+                        [class.selected]="selectedProduct?.Codigo === product.Codigo"
+                        (click)="selectProduct(product)">
                         <td>{{ product.Codigo }}</td>
                         <td>{{ product.Nombre }}</td>
                         <td>{{ product.Precio | currency }}</td>
@@ -107,14 +112,18 @@
                 </div>
               </div>
 
+              <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+
             <div class="separator"></div>
 
             <div class="add-product-section">
                 <div class="quantity-section">
-                    <label for="quantity" class="label fac">Cantidad:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input">
+                    <label for="quantity" class="sub-lab">Cantidad:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input" [(ngModel)]="quantity">
                 </div>
-                <button class="bottom-left-item btn-add">Agregar</button>
+                <button class="bottom-left-item btn-add" (click)="addProduct()">Agregar</button>
             </div>
 
 
