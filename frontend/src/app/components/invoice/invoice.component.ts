@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importar CommonModule
+import { CommonModule } from '@angular/common'; 
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { SearchInvoiceService, Invoice } from '../../core/services/search-invoice.service';
@@ -15,7 +15,7 @@ type ColumnKey = 'noFactura' | 'fecha' | 'documentoCliente' | 'nombreCliente' | 
   selector: 'app-invoice',
   standalone: true,
   imports: [
-    CommonModule, // Agregar CommonModule aquí
+    CommonModule, 
     MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
@@ -23,7 +23,7 @@ type ColumnKey = 'noFactura' | 'fecha' | 'documentoCliente' | 'nombreCliente' | 
     MatFormFieldModule,
     FormsModule,
     MatInputModule
-  ],
+  ], 
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.css']
 })
@@ -78,6 +78,5 @@ export class InvoiceComponent implements AfterViewInit {
 
   viewDetail(invoice: Invoice) {
     console.log('Ver detalle para la factura:', invoice);
-    // Aquí puedes agregar la lógica para navegar a la vista de detalles
   }
 }

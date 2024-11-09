@@ -31,9 +31,10 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ProductComponent implements AfterViewInit {
   data: any[] = [];
-  
+  selectedFilter: string = 'nombre'; 
   displayedColumns = ['Codigo', 'Nombre', 'Precio', 'Stock'];
-  
+  filteredData: any[] = [];
+  searchText: string = '';
   dataSource = new MatTableDataSource(this.data);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -44,10 +45,14 @@ export class ProductComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.dataSource.filter = filterValue;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }  
 
   ngOnInit() {
     this.loadProducts(); 
