@@ -14,6 +14,12 @@ from django.db.models import Q
 
 class CustomTokenOBtainPairSerializer(TokenObtainPairSerializer):
     username_field = 'username'
+
+    def get_token(self, user):#Agregué esto par el ususario en el front -A
+        token = super().get_token(user)
+        token['nombre_vendedor'] = user.nombre_vendedor 
+        return token
+    
     def validate(self, attrs):
         authenticate_kwargs = {
             'username': attrs[self.username_field],
@@ -28,6 +34,8 @@ class CustomTokenOBtainPairSerializer(TokenObtainPairSerializer):
 
         api_settings.USER_ID_FIELD='id_vendedor'
         return super().validate(attrs)
+
+        
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenOBtainPairSerializer
