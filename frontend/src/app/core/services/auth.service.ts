@@ -17,8 +17,8 @@ export class AuthService {
       .pipe(
         tap({
           next: (response) => {
-            console.log('Respuesta completa del servidor:', response); // Muestra la respuesta completa
-            if (response.access) { // Asegúrate de que el token esté en "access" o la clave correcta
+            console.log('Respuesta completa del servidor:', response); 
+            if (response.access) { 
               console.log('Token recibido:', response.access);
               this.setToken(response.access);
             } else {
@@ -57,6 +57,22 @@ export class AuthService {
     const exp = payload.exp * 1000;
     return Date.now() < exp;
   }
+
+  getUserName(): string | null {
+    const token = this.getToken();
+    if (token) {
+        try {
+            const payloadBase64 = token.split('.')[1];
+            const payloadDecoded = atob(payloadBase64);
+            const payload = JSON.parse(payloadDecoded);
+            return payload.nombre_vendedor || null;
+        } catch (error) {
+            console.error('Error decodificando el token:', error);
+            return null;
+        }
+    }
+    return null;
+}
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);

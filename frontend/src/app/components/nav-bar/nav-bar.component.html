@@ -12,12 +12,15 @@
         <mat-icon class="custom-icon">store</mat-icon>
       </a>
     </div>
-  </div>
+  </div> 
 
   <div class="right-section">
+    <span *ngIf="userName" class="user-name">{{ userName }}</span>
+    <div class="icon-container">
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu de usuario">
       <mat-icon class="icon-size">account_circle</mat-icon>
     </button>
+    </div>
     <mat-menu #menu="matMenu">
       <button (click)="logout()" mat-menu-item>
         <mat-icon>logout</mat-icon>

@@ -8,17 +8,24 @@ import { AuthService } from '../../core/services/auth.service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 @Component({ 
-  selector: 'app-nav-bar',
+  selector: 'app-nav-bar', 
   standalone: true,
   imports: [MatToolbarModule, CommonModule, MatIconModule, MatMenuModule, MatButtonModule],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
+  userName: string | null = null;
+
   constructor(private router: Router, private authService: AuthService,) {}
 
+  ngOnInit(): void {
+    this.userName = this.authService.getUserName();
+    console.log("Nombre de usuario:", this.userName);
+}
+
   showNavbar(): boolean {
-    return this.router.url !== '/login'; // Oculta en la ruta '/login'
+    return this.router.url !== '/login';
   }
 
   isOnPage(): boolean {
