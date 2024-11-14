@@ -6,21 +6,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SearchProductService {
-  private PRODUCT_URL = 'http://localhost:8000/api/productos/';
+  private PRODUCT_URL = 'http://localhost:8000/venta/productos/';
 
   constructor(private http: HttpClient) {}
 
-  public getProducts(codigo?: number, nombre?: string, precio?: number, stock?: number): Observable<any> {
+  public getProducts(query?: string): Observable<any> {
     let params = new HttpParams();
 
-    if (nombre) {
-      params = params.set('nombre', nombre);
-    }else if (precio) {
-      params = params.set('precio', precio.toString());
-    }else if (stock) {
-      params = params.set('stock', stock.toString());
-    }else if (codigo){
-      params = params.set('codigo', codigo.toString());
+    if (query) {
+      params = params.set('query', query);
     }
 
     return this.http.get(this.PRODUCT_URL, { params });
