@@ -15,8 +15,7 @@ export interface Invoice {
   providedIn: 'root',
 })
 export class SearchInvoiceService {
-  private apiUrl = 'http://localhost:8000/api/factura/'; // Reemplaza con la URL de tu API
-
+  private apiUrl = 'http://localhost:8000/reporte/facturas/';
   constructor(private http: HttpClient) {}
 
   
