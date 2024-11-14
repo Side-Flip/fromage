@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [MatIconModule, NavBarComponent, CommonModule, RouterModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrl: './home.component.css'
 })
 
 export class HomeComponent implements OnInit {

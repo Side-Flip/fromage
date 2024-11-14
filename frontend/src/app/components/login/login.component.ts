@@ -9,19 +9,29 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username: string = '';
+  nombre_usuario: string = '';
   password: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  login(): void {
-    console.log('Intentando iniciar sesión con:', this.username, this.password); // Para diagnóstico
-    this.authService.login(this.username, this.password).subscribe({
-      next: () => this.router.navigate(['/home']),
-      error: (err) => console.error('Login fallido', err),
-    });
-  }
+login(): void {
+  this.authService.login(this.nombre_usuario, this.password).subscribe({
+    next: () => {
+      const userRole = this.authService.getUserRole();
+      if (userRole === 'gerente') {
+        this.router.navigate(['/home']);
+      } else if (userRole === 'vendedor') {
+        this.router.navigate(['/home']);
+      } else {
+        console.warn('Rol desconocido, redirigiendo a /home');
+        this.router.navigate(['/login']);
+      }
+    },
+    error: (err) => console.error('Login fallido', err),
+  });
+}
+
 }
