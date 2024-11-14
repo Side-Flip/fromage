@@ -58,22 +58,22 @@ body {
 
 .top:before {
   transform: rotate(45deg);
-  background: #822b36; /* Vino tinto */
+  background: #822b36; 
 }
 
 .top:after {
   transform: rotate(135deg);
-  background: #d1b89f; /* Beige */
+  background: #d1b89f; 
 }
 
 .bottom:before {
   transform: rotate(-45deg);
-  background: #000; /* Negro */
+  background: #000; 
 }
 
 .bottom:after {
   transform: rotate(-135deg);
-  background: #822b36; /* Vino tinto */
+  background: #822b36; 
 }
 
 .center {
@@ -118,6 +118,6 @@ body {
 }
 
 .login-button:hover {
-  background-color: #822b36; /* Vino tinto */
-  color: #e2d1c0; /* Beige */
+  background-color: #822b36; 
+  color: #e2d1c0; 
 }
